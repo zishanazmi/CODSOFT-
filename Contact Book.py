@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 
 class Contact:
     def __init__(self, name, phone, email, address):
@@ -51,42 +51,51 @@ class ContactApp(tk.Tk):
         self.create_widgets()
 
     def create_widgets(self):
+        # Create a style
+        style = ttk.Style(self)
+        style.configure("TLabel", font=("Helvetica", 10))
+        style.configure("TButton", font=("Helvetica", 10, "bold"))
+
         # Entry fields
-        self.label_name = tk.Label(self, text="Name")
-        self.label_name.pack()
-        self.entry_name = tk.Entry(self)
-        self.entry_name.pack()
+        self.label_name = ttk.Label(self, text="Name")
+        self.label_name.grid(row=0, column=0, padx=10, pady=5, sticky=tk.W)
+        self.entry_name = ttk.Entry(self)
+        self.entry_name.grid(row=0, column=1, padx=10, pady=5, sticky=tk.EW)
 
-        self.label_phone = tk.Label(self, text="Phone")
-        self.label_phone.pack()
-        self.entry_phone = tk.Entry(self)
-        self.entry_phone.pack()
+        self.label_phone = ttk.Label(self, text="Phone")
+        self.label_phone.grid(row=1, column=0, padx=10, pady=5, sticky=tk.W)
+        self.entry_phone = ttk.Entry(self)
+        self.entry_phone.grid(row=1, column=1, padx=10, pady=5, sticky=tk.EW)
 
-        self.label_email = tk.Label(self, text="Email")
-        self.label_email.pack()
-        self.entry_email = tk.Entry(self)
-        self.entry_email.pack()
+        self.label_email = ttk.Label(self, text="Email")
+        self.label_email.grid(row=2, column=0, padx=10, pady=5, sticky=tk.W)
+        self.entry_email = ttk.Entry(self)
+        self.entry_email.grid(row=2, column=1, padx=10, pady=5, sticky=tk.EW)
 
-        self.label_address = tk.Label(self, text="Address")
-        self.label_address.pack()
-        self.entry_address = tk.Entry(self)
-        self.entry_address.pack()
+        self.label_address = ttk.Label(self, text="Address")
+        self.label_address.grid(row=3, column=0, padx=10, pady=5, sticky=tk.W)
+        self.entry_address = ttk.Entry(self)
+        self.entry_address.grid(row=3, column=1, padx=10, pady=5, sticky=tk.EW)
 
         # Buttons
-        self.button_add = tk.Button(self, text="Add Contact", command=self.add_contact)
-        self.button_add.pack()
+        self.button_add = ttk.Button(self, text="Add Contact", command=self.add_contact)
+        self.button_add.grid(row=4, column=0, padx=10, pady=5, sticky=tk.EW)
 
-        self.button_view = tk.Button(self, text="View Contacts", command=self.view_contacts)
-        self.button_view.pack()
+        self.button_view = ttk.Button(self, text="View Contacts", command=self.view_contacts)
+        self.button_view.grid(row=4, column=1, padx=10, pady=5, sticky=tk.EW)
 
-        self.button_search = tk.Button(self, text="Search Contact", command=self.search_contact)
-        self.button_search.pack()
+        self.button_search = ttk.Button(self, text="Search Contact", command=self.search_contact)
+        self.button_search.grid(row=5, column=0, padx=10, pady=5, sticky=tk.EW)
 
-        self.button_update = tk.Button(self, text="Update Contact", command=self.update_contact)
-        self.button_update.pack()
+        self.button_update = ttk.Button(self, text="Update Contact", command=self.update_contact)
+        self.button_update.grid(row=5, column=1, padx=10, pady=5, sticky=tk.EW)
 
-        self.button_delete = tk.Button(self, text="Delete Contact", command=self.delete_contact)
-        self.button_delete.pack()
+        self.button_delete = ttk.Button(self, text="Delete Contact", command=self.delete_contact)
+        self.button_delete.grid(row=6, column=0, columnspan=2, padx=10, pady=5, sticky=tk.EW)
+
+        for i in range(7):
+            self.grid_rowconfigure(i, weight=1)
+        self.grid_columnconfigure(1, weight=1)
 
     def add_contact(self):
         name = self.entry_name.get()
